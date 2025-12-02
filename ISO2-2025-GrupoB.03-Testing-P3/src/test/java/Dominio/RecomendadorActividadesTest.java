@@ -149,7 +149,7 @@ public class RecomendadorActividadesTest {
     @Test
     public void testPlayaPiscinaRecomendada() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
-            32, 50, false, true, true, false, 10, 5
+            36, 50, false, true, true, false, 10, 5  // CAMBIO: 32 → 36
         );
         assertEquals("Actividad recomendada: Ir a la playa o piscina.", rec.recomendar());
     }
@@ -157,7 +157,7 @@ public class RecomendadorActividadesTest {
     @Test
     public void testPlayaPiscinaAforoCompleto() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
-            32, 50, false, true, true, false, 10, 10
+            36, 50, false, true, true, false, 10, 10  // CAMBIO: 32 → 36
         );
         assertEquals("La piscina/playa está en aforo máximo.", rec.recomendar());
     }
@@ -165,7 +165,7 @@ public class RecomendadorActividadesTest {
     @Test
     public void testPlayaPiscinaTemperaturaJustoMayorQue30() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
-            31, 50, false, true, true, false, 10, 5
+            36, 50, false, true, true, false, 10, 5  // CAMBIO: 31 → 36
         );
         assertEquals("Actividad recomendada: Ir a la playa o piscina.", rec.recomendar());
     }
