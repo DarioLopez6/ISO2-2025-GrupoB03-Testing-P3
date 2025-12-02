@@ -44,16 +44,15 @@ public class MainInterfaceTest {
 
     @Test
     public void testFlujoCorrecto() {
-        //temp, hum, prec, nublado, sano, enfermo, afMax, afAct
         String input =
-            "20\n" +    //temperatura
-            "50\n" +    //humedad
-            "false\n" + //hay precipitaciones
-            "false\n" + //esta nublado
-            "true\n" +  //en plenas facultades
-            "false\n" + //tuvo enfermedad reciente
-            "10\n" +    //aforo maximo
-            "5\n";      //aforo actual
+            "20\n" +
+            "50\n" +
+            "false\n" +
+            "false\n" +
+            "true\n" +
+            "false\n" +
+            "10\n" +
+            "5\n";
 
         String salida = ejecutarMainConEntrada(input);
         assertTrue(salida.contains("RESULTADO:"));
@@ -64,7 +63,7 @@ public class MainInterfaceTest {
     public void testErrorHumedadInvalida() {
         String input =
             "20\n" +
-            "150\n" +   //humedad inválida
+            "150\n" +
             "false\n" +
             "false\n" +
             "true\n" +
@@ -83,5 +82,4 @@ public class MainInterfaceTest {
         String salida = ejecutarMainConEntrada(input);
         assertTrue(salida.contains("Error: introdujiste texto donde debía ir un número."));
     }
-
 }

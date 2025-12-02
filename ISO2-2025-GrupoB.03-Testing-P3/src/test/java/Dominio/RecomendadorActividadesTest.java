@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class RecomendadorActividadesTest {
 
-    //Constructor: aforos negativos
+    // Constructor: aforos negativos
     @Test(expected = ActividadInvalidaException.class)
     public void testAforoMaximoNegativoLanzaExcepcion() throws ActividadInvalidaException {
         new RecomendadorActividades(20, 50, false, false, true, false, -1, 0);
@@ -16,7 +16,7 @@ public class RecomendadorActividadesTest {
         new RecomendadorActividades(20, 50, false, false, true, false, 10, -1);
     }
 
-    //Constructor: humedad inválida
+    // Constructor: humedad inválida
     @Test(expected = ActividadInvalidaException.class)
     public void testHumedadMenorQueCeroLanzaExcepcion() throws ActividadInvalidaException {
         new RecomendadorActividades(20, -1, false, false, true, false, 10, 5);
@@ -27,7 +27,7 @@ public class RecomendadorActividadesTest {
         new RecomendadorActividades(20, 101, false, false, true, false, 10, 5);
     }
 
-    //Salud bloqueada
+    // Salud bloqueada
     @Test
     public void testSaludNoEnPlenasFacultades() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
@@ -44,7 +44,7 @@ public class RecomendadorActividadesTest {
         assertEquals("No puede realizar ninguna actividad por motivos de salud.", rec.recomendar());
     }
 
-    //Clima extremo: quedarse en casa
+    // Clima extremo: quedarse en casa
     @Test
     public void testClimaExtremoQuedarseEnCasa() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
@@ -53,7 +53,7 @@ public class RecomendadorActividadesTest {
         assertEquals("La mejor opción es quedarse en casa.", rec.recomendar());
     }
 
-    //Esquí
+    // Esquí
     @Test
     public void testEsquiRecomendado() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
@@ -70,7 +70,7 @@ public class RecomendadorActividadesTest {
         assertEquals("Aforo completo para actividades de esquí.", rec.recomendar());
     }
 
-    //Senderismo/Escalada
+    // Senderismo / Escalada
     @Test
     public void testSenderismoEscaladaRecomendadoLimiteInferior() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
@@ -95,7 +95,7 @@ public class RecomendadorActividadesTest {
         assertEquals("Aforo completo en las zonas de senderismo/escalada.", rec.recomendar());
     }
 
-    //Actividades generales primavera/verano/otoño
+    // Actividades generales primavera/verano/otoño
     @Test
     public void testActividadesGeneralesBuenasCondiciones() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
@@ -109,7 +109,6 @@ public class RecomendadorActividadesTest {
         RecomendadorActividades rec = new RecomendadorActividades(
             20, 60, false, true, true, false, 10, 5
         );
-        // No cumple la condición de actividades generales y no entra en ninguna otra
         assertEquals("No hay recomendaciones disponibles para las condiciones proporcionadas.", rec.recomendar());
     }
 
@@ -121,7 +120,7 @@ public class RecomendadorActividadesTest {
         assertEquals("No hay recomendaciones disponibles para las condiciones proporcionadas.", rec.recomendar());
     }
 
-    //Culturales y gastronómicas
+    // Culturales y gastronómicas
     @Test
     public void testCulturalesYGastronomicas() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
@@ -146,7 +145,7 @@ public class RecomendadorActividadesTest {
         assertEquals("Actividad recomendada: Actividades culturales o gastronómicas.", rec.recomendar());
     }
 
-    //Playa/piscina
+    // Playa / piscina
     @Test
     public void testPlayaPiscinaRecomendada() throws ActividadInvalidaException {
         RecomendadorActividades rec = new RecomendadorActividades(
@@ -171,10 +170,9 @@ public class RecomendadorActividadesTest {
         assertEquals("Actividad recomendada: Ir a la playa o piscina.", rec.recomendar());
     }
 
-    //Caso sin recomendación
+    // Caso sin recomendación
     @Test
     public void testSinRecomendaciones() throws ActividadInvalidaException {
-        //Por ejemplo, temperatura moderada pero con precipitaciones
         RecomendadorActividades rec = new RecomendadorActividades(
             20, 70, true, true, true, false, 10, 5
         );
