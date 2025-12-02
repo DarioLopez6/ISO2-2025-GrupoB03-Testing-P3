@@ -11,7 +11,6 @@ import java.io.PrintStream;
 
 public class MainInterfaceTest {
 
-    /* 
     private PrintStream originalOut;
     private java.io.InputStream originalIn;
 
@@ -85,5 +84,4 @@ public class MainInterfaceTest {
         assertTrue(salida.contains("Error: introdujiste texto donde debía ir un número."));
     }
 
-     */
 }
