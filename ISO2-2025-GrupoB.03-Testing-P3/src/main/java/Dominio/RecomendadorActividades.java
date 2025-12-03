@@ -11,17 +11,17 @@ public class RecomendadorActividades {
     private int aforoMaximo;
     private int aforoActual;
 
-    public RecomendadorActividades(double temperatura, int humedad, boolean hayPrecipitaciones,
+    public RecomendadorActividades(double temperatura, double humedad2, boolean hayPrecipitaciones,
             boolean estaNublado, boolean enPlenasFacultades, boolean tuvoEnfermedadReciente,
             int aforoMaximo, int aforoActual) throws ActividadInvalidaException {
 
         if (aforoMaximo < 0 || aforoActual < 0)
             throw new ActividadInvalidaException("Los aforos no pueden ser negativos.");
-        if (humedad < 0 || humedad > 100)
+        if (humedad2 < 0 || humedad2 > 100)
             throw new ActividadInvalidaException("La humedad debe estar entre 0 y 100.");
         
         this.temperatura = temperatura;
-        this.humedad = humedad;
+        this.humedad = humedad2;
         this.hayPrecipitaciones = hayPrecipitaciones;
         this.estaNublado = estaNublado;
         this.enPlenasFacultades = enPlenasFacultades;
