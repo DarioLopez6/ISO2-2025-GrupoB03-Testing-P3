@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
+import ISO2B3.Dominio.RecomendadorActividades;
+import ISO2B3.Dominio.ActividadInvalidaException;
 
 public class RecomendadorActividadesCsvTest {
 
@@ -109,17 +111,17 @@ public class RecomendadorActividadesCsvTest {
             String tipoResultado
     ) {
         try {
-            new RecomendadorActividades(
+                new ISO2B3.Dominio.RecomendadorActividades(
                     temperatura, humedad, hayPrec, estaNub,
                     enPlenas, tuvoEnf, aforoAct, aforoMax
-            );
+                );
 
             if (!"OK".equalsIgnoreCase(tipoResultado)) {
                 fail("Caso " + id + ": se esperaba excepción (" + tipoResultado
                         + ") pero el constructor no lanzó nada.");
             }
 
-        } catch (ActividadInvalidaException e) {
+        } catch (ISO2B3.Dominio.ActividadInvalidaException e) {
             String msg = normalizar(e.getMessage());
 
             if ("EXC_AFORO_NEG".equalsIgnoreCase(tipoResultado)) {
@@ -156,10 +158,10 @@ public class RecomendadorActividadesCsvTest {
             String mensajeEsperado
     ) {
         try {
-            RecomendadorActividades r = new RecomendadorActividades(
+                ISO2B3.Dominio.RecomendadorActividades r = new ISO2B3.Dominio.RecomendadorActividades(
                     temperatura, humedad, hayPrec, estaNub,
                     enPlenas, tuvoEnf, aforoAct, aforoMax
-            );
+                );
 
             if (!"OK".equalsIgnoreCase(tipoResultado)) {
                 fail("Caso " + id + ": se esperaba excepción (" + tipoResultado
@@ -176,7 +178,7 @@ public class RecomendadorActividadesCsvTest {
                     obtenidoNorm
             );
 
-        } catch (ActividadInvalidaException e) {
+        } catch (ISO2B3.Dominio.ActividadInvalidaException e) {
             String msg = normalizar(e.getMessage());
 
             if ("EXC_AFORO_NEG".equalsIgnoreCase(tipoResultado)) {

@@ -15,6 +15,7 @@ public class RecomendadorActividades {
             boolean estaNublado, boolean enPlenasFacultades, boolean tuvoEnfermedadReciente,
             int aforoActual, int aforoMaximo) throws ActividadInvalidaException {
 
+        // Comprobar aforos antes que humedad (prioridad original)
         if (aforoMaximo < 0 || aforoActual < 0)
             throw new ActividadInvalidaException("Los aforos no pueden ser negativos.");
         if (humedad < 0 || humedad > 100)
@@ -65,16 +66,18 @@ public class RecomendadorActividades {
         }
 
         // Culturales y gastronómicas
-        if (temperatura >= 25 && temperatura <= 35 && !hayPrecipitaciones) {
-            return "Actividad recomendada: Actividades culturales o gastronómicas.";
-        }
-
+        // Nota: evaluar playa/piscina antes cuando la temperatura es alta
         // Playa / piscina
         if (temperatura > 30 && !hayPrecipitaciones) {
             if (aforoActual < aforoMaximo)
                 return "Actividad recomendada: Ir a la playa o piscina.";
             else
                 return "La piscina/playa está en aforo máximo.";
+        }
+
+        // Culturales y gastronómicas
+        if (temperatura >= 25 && temperatura <= 35 && !hayPrecipitaciones) {
+            return "Actividad recomendada: Actividades culturales o gastronómicas.";
         }
 
         return "No hay recomendaciones disponibles para las condiciones proporcionadas.";

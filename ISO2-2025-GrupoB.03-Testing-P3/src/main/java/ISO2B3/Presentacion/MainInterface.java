@@ -3,8 +3,8 @@ package ISO2B3.Presentacion;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Dominio.ActividadInvalidaException;
-import Dominio.RecomendadorActividades;
+import ISO2B3.Dominio.ActividadInvalidaException;
+import ISO2B3.Dominio.RecomendadorActividades;
 
 public class MainInterface {
 
@@ -39,7 +39,7 @@ public class MainInterface {
             int afAct = sc.nextInt();
 
             RecomendadorActividades rec = new RecomendadorActividades(
-                temp, hum, prec, nublado, sano, enfermo, afMax, afAct
+                temp, hum, prec, nublado, sano, enfermo, afAct, afMax
             );
 
             System.out.println("\nRESULTADO:");

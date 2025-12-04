@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecomendadorActividades.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">it5-0.5.0-SNAPSHOT Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">ISO2B3.Dominio</a> &gt; <span class="el_source">RecomendadorActividades.java</span></div><h1>RecomendadorActividades.java</h1><pre class="source lang-java linenums">package ISO2B3.Dominio;
+
+public class RecomendadorActividades {
+    
+    private double temperatura;
+    private int humedad;
+    private boolean hayPrecipitaciones;
+    private boolean estaNublado;
+    private boolean enPlenasFacultades;
+    private boolean tuvoEnfermedadReciente;
+    private int aforoMaximo;
+    private int aforoActual;
+
+    public RecomendadorActividades(double temperatura, int humedad, boolean hayPrecipitaciones,
+            boolean estaNublado, boolean enPlenasFacultades, boolean tuvoEnfermedadReciente,
+<span class="fc" id="L16">            int aforoActual, int aforoMaximo) throws ActividadInvalidaException {</span>
+
+        // Comprobar aforos antes que humedad (prioridad original)
+<span class="pc bpc" id="L19" title="1 of 4 branches missed.">        if (aforoMaximo &lt; 0 || aforoActual &lt; 0)</span>
+<span class="fc" id="L20">            throw new ActividadInvalidaException(&quot;Los aforos no pueden ser negativos.&quot;);</span>
+<span class="pc bpc" id="L21" title="3 of 4 branches missed.">        if (humedad &lt; 0 || humedad &gt; 100)</span>
+<span class="fc" id="L22">            throw new ActividadInvalidaException(&quot;La humedad debe estar entre 0 y 100.&quot;);</span>
+        
+<span class="nc" id="L24">        this.temperatura = temperatura;</span>
+<span class="nc" id="L25">        this.humedad = humedad;</span>
+<span class="nc" id="L26">        this.hayPrecipitaciones = hayPrecipitaciones;</span>
+<span class="nc" id="L27">        this.estaNublado = estaNublado;</span>
+<span class="nc" id="L28">        this.enPlenasFacultades = enPlenasFacultades;</span>
+<span class="nc" id="L29">        this.tuvoEnfermedadReciente = tuvoEnfermedadReciente;</span>
+<span class="nc" id="L30">        this.aforoMaximo = aforoMaximo;</span>
+<span class="nc" id="L31">        this.aforoActual = aforoActual;</span>
+<span class="nc" id="L32">    }</span>
+
+    public String recomendar() {
+
+        // Salud
+<span class="nc bnc" id="L37" title="All 4 branches missed.">        if (!enPlenasFacultades || tuvoEnfermedadReciente) {</span>
+<span class="nc" id="L38">            return &quot;No puede realizar ninguna actividad por motivos de salud.&quot;;</span>
+        }
+
+        // Clima extremo
+<span class="nc bnc" id="L42" title="All 6 branches missed.">        if (temperatura &lt; 0 &amp;&amp; humedad &lt; 15 &amp;&amp; hayPrecipitaciones) {</span>
+<span class="nc" id="L43">            return &quot;La mejor opción es quedarse en casa.&quot;;</span>
+        }
+
+        // Esquí
+<span class="nc bnc" id="L47" title="All 6 branches missed.">        if (temperatura &lt; 0 &amp;&amp; humedad &lt; 15 &amp;&amp; !hayPrecipitaciones) {</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (aforoActual &lt; aforoMaximo)</span>
+<span class="nc" id="L49">                return &quot;Actividad recomendada: Esquí.&quot;;</span>
+            else
+<span class="nc" id="L51">                return &quot;Aforo completo para actividades de esquí.&quot;;</span>
+        }
+
+        // Senderismo / Escalada
+<span class="nc bnc" id="L55" title="All 6 branches missed.">        if (temperatura &gt;= 0 &amp;&amp; temperatura &lt;= 15 &amp;&amp; !hayPrecipitaciones) {</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (aforoActual &lt; aforoMaximo)</span>
+<span class="nc" id="L57">                return &quot;Actividad recomendada: Senderismo o Escalada.&quot;;</span>
+            else
+<span class="nc" id="L59">                return &quot;Aforo completo en las zonas de senderismo/escalada.&quot;;</span>
+        }
+
+        // Actividades generales
+<span class="nc bnc" id="L63" title="All 10 branches missed.">        if (temperatura &gt;= 15 &amp;&amp; temperatura &lt;= 25 &amp;&amp; !hayPrecipitaciones </span>
+                &amp;&amp; !estaNublado &amp;&amp; humedad &lt;= 60) {
+<span class="nc" id="L65">            return &quot;Puede realizar actividades de primavera/verano/otoño.&quot;;</span>
+        }
+
+        // Culturales y gastronómicas
+        // Nota: evaluar playa/piscina antes cuando la temperatura es alta
+        // Playa / piscina
+<span class="nc bnc" id="L71" title="All 4 branches missed.">        if (temperatura &gt; 30 &amp;&amp; !hayPrecipitaciones) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (aforoActual &lt; aforoMaximo)</span>
+<span class="nc" id="L73">                return &quot;Actividad recomendada: Ir a la playa o piscina.&quot;;</span>
+            else
+<span class="nc" id="L75">                return &quot;La piscina/playa está en aforo máximo.&quot;;</span>
+        }
+
+        // Culturales y gastronómicas
+<span class="nc bnc" id="L79" title="All 6 branches missed.">        if (temperatura &gt;= 25 &amp;&amp; temperatura &lt;= 35 &amp;&amp; !hayPrecipitaciones) {</span>
+<span class="nc" id="L80">            return &quot;Actividad recomendada: Actividades culturales o gastronómicas.&quot;;</span>
+        }
+
+<span class="nc" id="L83">        return &quot;No hay recomendaciones disponibles para las condiciones proporcionadas.&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
