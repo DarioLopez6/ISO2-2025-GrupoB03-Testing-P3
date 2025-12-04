@@ -11,7 +11,7 @@ public class RecomendadorActividades {
     private int aforoMaximo;
     private int aforoActual;
 
-    public RecomendadorActividades(double temperatura, double humedad2, boolean hayPrecipitaciones,
+    public RecomendadorActividades(double temperatura, int humedad2, boolean hayPrecipitaciones,
             boolean estaNublado, boolean enPlenasFacultades, boolean tuvoEnfermedadReciente,
             int aforoMaximo, int aforoActual) throws ActividadInvalidaException {
 

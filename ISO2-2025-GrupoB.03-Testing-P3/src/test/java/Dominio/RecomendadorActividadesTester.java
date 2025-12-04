@@ -1,35 +1,31 @@
 package Dominio;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+import org.junit.Test;
 
 public class RecomendadorActividadesTester {
 
-    public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Uso: java RecomendadorActividadesTester <ruta_fichero_txt>");
-            System.exit(1);
-        }
+    // El fichero debe estar en src/test/resources/casosRecomendador.txt
+    private static final String FICHERO_CASOS = "/casosRecomendador.txt";
 
-        String rutaFichero = args[0];
+    @Test
+    public void todosLosCasosDelFicheroDebenPasar() throws IOException {
+        InputStream is = getClass().getResourceAsStream(FICHERO_CASOS);
+        assertNotNull("No se ha encontrado el fichero de casos: " + FICHERO_CASOS, is);
 
-        try {
-            ejecutarPruebasDesdeFichero(rutaFichero);
-        } catch (IOException e) {
-            System.err.println("Error leyendo el fichero de casos: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Lee el fichero de texto línea a línea y ejecuta cada caso de prueba.
-     */
-    public static void ejecutarPruebasDesdeFichero(String rutaFichero) throws IOException {
         int total = 0;
         int ok = 0;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(rutaFichero))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String linea;
 
             while ((linea = br.readLine()) != null) {
@@ -44,6 +40,9 @@ public class RecomendadorActividadesTester {
                 boolean resultado = ejecutarCaso(linea);
                 if (resultado) {
                     ok++;
+                } else {
+                    // Si un caso falla, fallamos el test
+                    fail("Falló el caso de prueba " + total + " (línea: " + linea + "). Revisa la salida por consola.");
                 }
             }
         }
@@ -51,6 +50,9 @@ public class RecomendadorActividadesTester {
         System.out.println("=================================");
         System.out.println("Resumen general: " + ok + " / " + total + " casos OK");
         System.out.println("=================================");
+
+        assertTrue("No se ha ejecutado ningún caso de prueba.", total > 0);
+        assertTrue("No todos los casos han pasado correctamente.", ok == total);
     }
 
     /**
@@ -58,7 +60,7 @@ public class RecomendadorActividadesTester {
      * Formato:
      * ID;METODO;temp;hum;hayPrec;estaNub;enPlenas;tuvoEnf;aforoAct;aforoMax;TIPORESULTADO;MENSAJE_ESPERADO
      */
-    private static boolean ejecutarCaso(String linea) {
+    private boolean ejecutarCaso(String linea) {
         String[] partes = linea.split(";", -1); // -1 para conservar campos vacíos
 
         if (partes.length < 11) {
@@ -71,7 +73,7 @@ public class RecomendadorActividadesTester {
 
         try {
             double temperatura = Double.parseDouble(partes[2].trim());
-            double humedad = Double.parseDouble(partes[3].trim());
+            int humedad = Integer.parseInt(partes[3].trim());
             boolean hayPrec = Boolean.parseBoolean(partes[4].trim());
             boolean estaNub = Boolean.parseBoolean(partes[5].trim());
             boolean enPlenas = Boolean.parseBoolean(partes[6].trim());
@@ -89,13 +91,11 @@ public class RecomendadorActividadesTester {
                             id, temperatura, humedad, hayPrec, estaNub,
                             enPlenas, tuvoEnf, aforoAct, aforoMax, tipoResultado
                     );
-
                 case "B":
                     return probarRecomendar(
                             id, temperatura, humedad, hayPrec, estaNub,
                             enPlenas, tuvoEnf, aforoAct, aforoMax, tipoResultado, mensajeEsperado
                     );
-
                 default:
                     System.out.println("[ERROR] Método desconocido en el caso " + id + ": " + metodo);
                     return false;
@@ -110,10 +110,10 @@ public class RecomendadorActividadesTester {
     // =========================================================
     //   MÉTODO A: pruebas del constructor
     // =========================================================
-    private static boolean probarConstructor(
+    private boolean probarConstructor(
             String id,
             double temperatura,
-            double humedad,
+            int humedad,
             boolean hayPrec,
             boolean estaNub,
             boolean enPlenas,
@@ -123,9 +123,12 @@ public class RecomendadorActividadesTester {
             String tipoResultado
     ) {
         try {
-            RecomendadorActividades r = new RecomendadorActividades(temperatura, humedad, hayPrec, estaNub,enPlenas, tuvoEnf, aforoAct, aforoMax);
+            // Solo queremos comprobar que el constructor se ejecuta o lanza la excepción correcta
+            new RecomendadorActividades(
+                    temperatura, humedad, hayPrec, estaNub,
+                    enPlenas, tuvoEnf, aforoAct, aforoMax
+            );
 
-            // Si no salta excepción:
             if ("OK".equalsIgnoreCase(tipoResultado)) {
                 System.out.println("[OK] " + id + ": objeto creado correctamente (sin excepción).");
                 return true;
@@ -159,10 +162,10 @@ public class RecomendadorActividadesTester {
     // =========================================================
     //   MÉTODO B: pruebas de recomendar()
     // =========================================================
-    private static boolean probarRecomendar(
+    private boolean probarRecomendar(
             String id,
             double temperatura,
-            double humedad,
+            int humedad,
             boolean hayPrec,
             boolean estaNub,
             boolean enPlenas,
@@ -178,7 +181,6 @@ public class RecomendadorActividadesTester {
                     enPlenas, tuvoEnf, aforoAct, aforoMax
             );
 
-            // Si esperábamos excepción pero no ha saltado:
             if (!"OK".equalsIgnoreCase(tipoResultado)) {
                 System.out.println("[FALLO] " + id + ": se esperaba excepción (" + tipoResultado
                         + ") pero el constructor no lanzó nada.");
@@ -202,7 +204,6 @@ public class RecomendadorActividadesTester {
         } catch (ActividadInvalidaException e) {
             String msg = normalizar(e.getMessage());
 
-            // Solo llegamos aquí si el constructor lanza excepción
             if ("EXC_AFORO_NEG".equalsIgnoreCase(tipoResultado)
                     && "Los aforos no pueden ser negativos.".equals(msg)) {
                 System.out.println("[OK] " + id + ": excepción de aforo negativo correcta.");
@@ -229,7 +230,7 @@ public class RecomendadorActividadesTester {
     // =========================================================
     //   Utilidad para normalizar textos
     // =========================================================
-    private static String normalizar(String s) {
+    private String normalizar(String s) {
         if (s == null) return "";
         return s.trim();
     }
