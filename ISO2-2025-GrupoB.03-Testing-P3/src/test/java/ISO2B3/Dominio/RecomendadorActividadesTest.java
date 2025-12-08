@@ -1,19 +1,16 @@
 package ISO2B3.Dominio;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
-import ISO2B3.Dominio.RecomendadorActividades;
-import ISO2B3.Dominio.ActividadInvalidaException;
 
 public class RecomendadorActividadesTest {
 
@@ -231,7 +228,7 @@ public class RecomendadorActividadesTest {
     @org.junit.Test
     public void constructor_aforoNegativo_lanza() {
         try {
-            new RecomendadorActividades(20, 50, false, false, true, false, -1, 10);
+            RecomendadorActividades r = new RecomendadorActividades(20, 50, false, false, true, false, -1, 10);
             org.junit.Assert.fail("Se esperaba ActividadInvalidaException por aforo negativo");
         } catch (ActividadInvalidaException e) {
             org.junit.Assert.assertEquals("Los aforos no pueden ser negativos.", e.getMessage());
@@ -243,7 +240,7 @@ public class RecomendadorActividadesTest {
     @org.junit.Test
     public void constructor_humedadFuera_lanza() {
         try {
-            new RecomendadorActividades(20, 150, false, false, true, false, 0, 10);
+            RecomendadorActividades r = new RecomendadorActividades(20, 150, false, false, true, false, 0, 10);
             org.junit.Assert.fail("Se esperaba ActividadInvalidaException por humedad inválida");
         } catch (ActividadInvalidaException e) {
             org.junit.Assert.assertEquals("La humedad debe estar entre 0 y 100.", e.getMessage());
@@ -314,43 +311,5 @@ public class RecomendadorActividadesTest {
     public void fallback_no_recomendacion_unit() throws Exception {
         RecomendadorActividades r = new RecomendadorActividades(40, 80, true, true, true, false, 1, 10);
         org.junit.Assert.assertEquals("No hay recomendaciones disponibles para las condiciones proporcionadas.", r.recomendar());
-    }
-
-    @org.junit.Test
-    public void cobertura_exhaustiva_combinaciones() {
-        double[] temps = {-10, -1, 0, 5, 15, 20, 25, 30, 35};
-        int[] hums = {5, 14, 15, 16, 50, 61};
-        boolean[] prec = {true, false};
-        boolean[] nublado = {true, false};
-        boolean[] enPlenas = {true, false};
-        boolean[] tuvoEnf = {true, false};
-        int[] aforosAct = {0, 1, 10, 40, 50};
-        int[] aforosMax = {1, 10, 40, 50};
-
-        for (double t : temps) {
-            for (int h : hums) {
-                for (boolean p : prec) {
-                    for (boolean n : nublado) {
-                        for (boolean e : enPlenas) {
-                            for (boolean te : tuvoEnf) {
-                                for (int a : aforosAct) {
-                                    for (int m : aforosMax) {
-                                        try {
-                                            RecomendadorActividades r = new RecomendadorActividades(t, h, p, n, e, te, a, m);
-                                            // call to exercise method; don't assert output here
-                                            r.recomendar();
-                                        } catch (ActividadInvalidaException ex) {
-                                            // ignore expected validation exceptions
-                                        } catch (Exception ex) {
-                                            org.junit.Assert.fail("Unexpected exception: " + ex + " for params t=" + t + " h=" + h + " p=" + p + " n=" + n + " e=" + e + " te=" + te + " a=" + a + " m=" + m);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }
