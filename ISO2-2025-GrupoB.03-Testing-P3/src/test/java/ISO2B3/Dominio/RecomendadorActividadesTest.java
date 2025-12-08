@@ -226,12 +226,14 @@ public class RecomendadorActividadesTest {
     }
 
     // CPtest_13 -> constructor: aforo negativo lanza excepción correcta
+    // CPtest_13 -> constructor: aforo negativo lanza excepción correcta
     @Test
     public void CPtest_13_constructor_aforoNegativo_lanza() {
         try {
-            RecomendadorActividades r =
-                    new RecomendadorActividades(20, 50, false, false,
-                            true, false, -1, 10);
+            new RecomendadorActividades(
+                    20, 50, false, false,
+                    true, false, -1, 10
+            );
             org.junit.Assert.fail("Se esperaba ActividadInvalidaException por aforo negativo");
         } catch (ActividadInvalidaException e) {
             org.junit.Assert.assertEquals("Los aforos no pueden ser negativos.", e.getMessage());
@@ -244,9 +246,10 @@ public class RecomendadorActividadesTest {
     @Test
     public void CPtest_14_constructor_humedadFuera_lanza() {
         try {
-            RecomendadorActividades r =
-                    new RecomendadorActividades(20, 150, false, false,
-                            true, false, 0, 10);
+            new RecomendadorActividades(
+                    20, 150, false, false,
+                    true, false, 0, 10
+            );
             org.junit.Assert.fail("Se esperaba ActividadInvalidaException por humedad inválida");
         } catch (ActividadInvalidaException e) {
             org.junit.Assert.assertEquals("La humedad debe estar entre 0 y 100.", e.getMessage());
@@ -335,56 +338,73 @@ public class RecomendadorActividadesTest {
         }
     }
 
-    // ======================= MÉTODO A: constructor ============================
-    private void probarConstructor(
-            String id,
-            double temperatura,
-            int humedad,
-            boolean hayPrec,
-            boolean estaNub,
-            boolean enPlenas,
-            boolean tuvoEnf,
-            int aforoAct,
-            int aforoMax,
-            String tipoResultado
-    ) {
-        try {
-            new ISO2B3.Dominio.RecomendadorActividades(
-                    temperatura, humedad, hayPrec, estaNub,
-                    enPlenas, tuvoEnf, aforoAct, aforoMax
-            );
-
-            if (!"OK".equalsIgnoreCase(tipoResultado)) {
-                fail("Caso " + id + ": se esperaba excepción (" + tipoResultado
-                        + ") pero el constructor no lanzó nada.");
-            }
-
-        } catch (ISO2B3.Dominio.ActividadInvalidaException e) {
-            String msg = normalizar(e.getMessage());
-
-            if ("EXC_AFORO_NEG".equalsIgnoreCase(tipoResultado)) {
-
-                assertEquals(
-                        "Caso " + id + ": mensaje de excepción incorrecto",
-                        "Los aforos no pueden ser negativos.",
-                        msg
+// ======================= MÉTODO A: constructor ============================
+private void probarConstructor(
+        String id,
+        double temperatura,
+        int humedad,
+        boolean hayPrec,
+        boolean estaNub,
+        boolean enPlenas,
+        boolean tuvoEnf,
+        int aforoAct,
+        int aforoMax,
+        String tipoResultado
+) {
+    try {
+        // Creamos el recomendador y LO USAMOS para evitar warnings del IDE
+        ISO2B3.Dominio.RecomendadorActividades r =
+                new ISO2B3.Dominio.RecomendadorActividades(
+                        temperatura, humedad, hayPrec, estaNub,
+                        enPlenas, tuvoEnf, aforoAct, aforoMax
                 );
 
-            } else if ("EXC_HUMEDAD".equalsIgnoreCase(tipoResultado)) {
+        assertNotNull("El recomendador no debe ser nulo", r);
 
-                // En algunos casos (como CP2.1) la implementación comprueba antes el aforo
-                // y lanza la excepción de aforo negativo en lugar de la de humedad.
-                if (!"La humedad debe estar entre 0 y 100.".equals(msg)
-                        && !"Los aforos no pueden ser negativos.".equals(msg)) {
-                    fail("Caso " + id + ": mensaje de excepción incorrecto (EXC_HUMEDAD): " + msg);
-                }
+        // Si se esperaba excepción pero no se lanzó → fallo
+        if (!"OK".equalsIgnoreCase(tipoResultado)) {
+            fail("Caso " + id + ": se esperaba excepción (" + tipoResultado
+                    + ") pero el constructor no lanzó nada.");
+        }
 
-            } else {
-                fail("Caso " + id + ": excepción no esperada \"" + e.getMessage()
-                        + "\" (se esperaba tipoResultado=" + tipoResultado + ")");
+    } catch (ISO2B3.Dominio.ActividadInvalidaException e) {
+
+        String msg = normalizar(e.getMessage());
+
+        // Excepción esperada: aforo negativo
+        if ("EXC_AFORO_NEG".equalsIgnoreCase(tipoResultado)) {
+
+            assertEquals(
+                    "Caso " + id + ": mensaje de excepción incorrecto",
+                    "Los aforos no pueden ser negativos.",
+                    msg
+            );
+            return;
+        }
+
+        // Excepción esperada: humedad incorrecta
+        else if ("EXC_HUMEDAD".equalsIgnoreCase(tipoResultado)) {
+
+            // La implementación puede comprobar antes el aforo → permitimos ambos mensajes
+            boolean humedadValida =
+                    "La humedad debe estar entre 0 y 100.".equals(msg);
+            boolean aforoValido =
+                    "Los aforos no pueden ser negativos.".equals(msg);
+
+            if (!humedadValida && !aforoValido) {
+                fail("Caso " + id + ": mensaje de excepción incorrecto para EXC_HUMEDAD. Obtenido: " + msg);
             }
+            return;
+        }
+
+        // Si la excepción NO era esperada
+        else {
+            fail("Caso " + id + ": excepción no esperada \"" + e.getMessage()
+                    + "\" (se esperaba tipoResultado=" + tipoResultado + ")");
         }
     }
+}
+
     // ======================= MÉTODO B: recomendar() ==========================
     private void probarRecomendar(
             String id,

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ISO2B3.Dominio.ActividadInvalidaExceptionTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 s -- in ISO2B3.Dominio.ActividadInvalidaExceptionTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.095 s -- in ISO2B3.Dominio.ActividadInvalidaExceptionTest
