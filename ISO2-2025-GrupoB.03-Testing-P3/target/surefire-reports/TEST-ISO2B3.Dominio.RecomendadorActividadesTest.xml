@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.022" tests="17" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.026" tests="15" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\USUARIO\AppData\Local\Temp\surefire5216673411038699545\surefirebooter-20251204141718969_3.jar C:\Users\USUARIO\AppData\Local\Temp\surefire5216673411038699545 2025-12-04T14-17-18_777-jvmRun1 surefire-20251204141718969_1tmp surefire_0-20251204141718969_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\USUARIO\AppData\Local\Temp\surefire2645335001162610606\surefirebooter-20251208171943976_3.jar C:\Users\USUARIO\AppData\Local\Temp\surefire2645335001162610606 2025-12-08T17-19-43_855-jvmRun1 surefire-20251208171943976_1tmp surefire_0-20251208171943976_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\USUARIO\OneDrive - Universidad de Castilla-La Mancha\Documentos\GitHub\Tetris\ISO2-2025-GrupoB03-Testing-P3\ISO2-2025-GrupoB.03-Testing-P3\target\test-classes;C:\Users\USUARIO\OneDrive - Universidad de Castilla-La Mancha\Documentos\GitHub\Tetris\ISO2-2025-GrupoB03-Testing-P3\ISO2-2025-GrupoB.03-Testing-P3\target\classes;C:\Users\USUARIO\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\USUARIO\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\USUARIO\AppData\Local\Temp\surefire5216673411038699545\surefirebooter-20251204141718969_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\USUARIO\AppData\Local\Temp\surefire2645335001162610606\surefirebooter-20251208171943976_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.16+8"/>
@@ -40,7 +40,6 @@
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="Cp1252"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="skipTests" value="false"/>
     <property name="java.vendor.version" value="Temurin-17.0.16+8"/>
     <property name="localRepository" value="C:\Users\USUARIO\.m2\repository"/>
     <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
@@ -59,21 +58,19 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="constructor_aforoNegativo_lanza" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="fallback_no_recomendacion_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="culturales_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="esqui_con_aforo_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="actividades_generales_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="senderismo_con_aforo_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="playa_con_aforo_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="constructorConMensaje_guardaElMensaje" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="playa_aforo_maximo_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="salud_prohibida_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="sePuedeLanzarActividadInvalidaException" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="clima_extremo_quedarse_en_casa_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="senderismo_aforo_completo_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="esqui_aforo_completo_unit" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
-  <testcase name="probarTodosLosCasosDelCsv" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.021"/>
-  <testcase name="cobertura_exhaustiva_combinaciones" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.001"/>
-  <testcase name="constructor_humedadFuera_lanza" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_10_playa_aforo_maximo" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_4_senderismo_aforo_completo" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_8_culturales_gastronomicas" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_3_esqui_aforo_completo" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_2_clima_extremo_quedarse_en_casa" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_7_sin_recomendaciones_humedad_alta" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_6_actividades_primavera_verano_otono" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_14_constructor_humedadFuera_lanza" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_5_sin_recomendaciones_lluvia" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_13_constructor_aforoNegativo_lanza" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_1_salud_no_puede_realizar" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_11_constructorConMensaje_guardaElMensaje" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="CPtest_9_playa_con_aforo" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
+  <testcase name="probarTodosLosCasosDelTxt" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.022"/>
+  <testcase name="CPtest_12_sePuedeLanzarActividadInvalidaException" classname="ISO2B3.Dominio.RecomendadorActividadesTest" time="0.0"/>
 </testsuite>
